@@ -12,7 +12,7 @@ services:
     environment:
       # Настройки для Laravel .env файла
       DB_CONNECTION: pgsql
-      DB_HOST: pgsql
+      DB_HOST: host.docker.internal
       REDIS_HOST: redis
       QUEUE_CONNECTION: rabbitmq
       KAFKA_BROKER: kafka:9092
@@ -32,21 +32,6 @@ services:
       - ./dockerfiles/nginx.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - app
-    networks:
-      - laravel_network
-
-  # Сервис базы данных PostgreSQL
-  pgsql:
-    image: postgres:15-alpine
-    container_name: laravel_pgsql
-    ports:
-      - "5433:5432"
-    environment:
-      POSTGRES_DB: auction
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 1111
-    volumes:
-      - pgsql_data:/var/lib/postgresql/data
     networks:
       - laravel_network
 
