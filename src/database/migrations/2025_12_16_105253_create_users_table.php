@@ -1,10 +1,9 @@
 <?php
 
+use App\Enums\role_name;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\Hash;
-use app\Role_name;
 
 return new class extends Migration
 {
@@ -21,11 +20,11 @@ return new class extends Migration
             $table->string('email', 100)->unique();
             $table->string('password');
             $table->integer('age');
-            $status = array_column(Role_name::cases(), 'value');
-            $table->enum('role', $status)->default(Role_name::Unauthorized->value)->nullable();
+            $status = array_column(role_name::cases(), 'value');
+            $table->enum('role', $status)->default(role_name::Unauthorized->value)->nullable();
             $table->string('refresh_token', 256);
             $table->integer('avatar_image_id');
-            $table->foreign('avatar_image_id')->references('id')->on('image')->onDelete('cascade');
+            $table->foreign('avatar_image_id')->references('id')->on('image')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

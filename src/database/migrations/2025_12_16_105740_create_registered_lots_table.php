@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\bank_status;
 
 return new class extends Migration
 {
@@ -12,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('personal_bank', function(Blueprint $table){
+        Schema::create('registered_lots', function(Blueprint $table){
             $table->id();
-            $table->decimal('money_count', 20, 2);
-            $table->timestamp('transaction_time');
-            $bank_status = array_column(bank_status::cases(), 'value');
-            $table->enum('transaction_status', $bank_status)->default(bank_status::Awaiting->value)->nullable();
+            $table->integer('user_id');
+            $table->integer('auction_id');
+            $table->integer('lot_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('auction_id')->references('id')->on('auctions')->onDelete('cascade');
+            $table->foreign('lot_id')->references('id')->on('lots')->onDelete('cascade');
+            $table->unique('user_id', 'auction_id');
         });
     }
 

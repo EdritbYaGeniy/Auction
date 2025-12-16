@@ -1,8 +1,8 @@
 <?php
 
-namespace app;
+namespace App\Enums;
 
-enum Role_name: string
+enum role_name: string
 {
     case Admin = 'admin';
     case User = 'user';

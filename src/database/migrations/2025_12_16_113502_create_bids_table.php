@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('registered_lots', function(Blueprint $table){
+        Schema::create('bids',  function(Blueprint $table){
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('auction_id')->references('id')->on('auctions')->onDelete('cascade');
+            $table->decimal('amount_auction', 20, 2);
+            $table->decimal('amount_lot', 20, 2);
+            $table->timestamp('time_lot_bid');
+            $table->timestamp('time_auction_bid');
+            $table->integer('lot_id');
             $table->foreign('lot_id')->references('id')->on('lots')->onDelete('cascade');
-            $table->unique('user_id', 'auction_id');
         });
     }
 

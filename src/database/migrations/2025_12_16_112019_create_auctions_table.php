@@ -1,9 +1,9 @@
 <?php
 
+use App\Enums\auction_status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use app\auction_status;
 
 return new class extends Migration
 {
@@ -24,7 +24,9 @@ return new class extends Migration
             $table->time('end_lot_time');
             $table->boolean('deposit_paid')->default('false');
             $table->decimal('deposit_amount', 8, 2);
-            $table->foreign('users_id')->references('id')->on('users')->onUpdate('cascade');
+            $table->integer('user_id');
+            $table->integer('image_id');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade');
             $table->foreign('image_id')->references('id')->on('image')->onUpdate('cascade');
         });
     }

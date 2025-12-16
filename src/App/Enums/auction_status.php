@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace App\Enums;
 
 enum auction_status: string
 {

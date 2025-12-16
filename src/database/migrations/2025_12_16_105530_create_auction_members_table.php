@@ -12,9 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('auction_members', function(Blueprint $table){
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('auctions_id')->references('id')->on('auctions')->onDelete('cascade');
-            $table->primary('auctions_id', 'users_id');
+            $table->integer('user_id');
+            $table->integer('auction_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('auction_id')->references('id')->on('auctions')->onDelete('cascade');
+            $table->primary('auction_id', 'users_id');
 
         });
     }
