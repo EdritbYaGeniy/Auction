@@ -10,7 +10,6 @@ services:
     volumes:
       - ./src:/var/www/html
     environment:
-      # Настройки для Laravel .env файла
       DB_CONNECTION: pgsql
       DB_HOST: host.docker.internal
       REDIS_HOST: redis
