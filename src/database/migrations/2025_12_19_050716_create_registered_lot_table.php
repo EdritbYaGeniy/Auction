@@ -13,10 +13,12 @@ return new class extends Migration
     {
         Schema::create('registered_lots', function(Blueprint $table){
             $table->id();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('auction_id')->references('id')->on('auctions')->onDelete('cascade');
-            $table->foreign('lot_id')->references('id')->on('lots')->onDelete('cascade');
-            $table->unique('user_id', 'auction_id');
+            $table->integer('user_id');
+            $table->integer('auction_id');
+            $table->integer('lot_id');
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
+            $table->foreign('auction_id')->references('id')->on('auction')->onDelete('cascade');
+            $table->foreign('lot_id')->references('id')->on('lot')->onDelete('cascade');
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('registered_lot');
     }
 };
